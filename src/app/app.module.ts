@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
@@ -39,7 +40,8 @@ import { LoginComponent } from './login/login.component';
     MaterialModule,
     FlexLayoutModule, 
 	  AppRoutingModule, 
-    FormsModule
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [
 	DishService, 
