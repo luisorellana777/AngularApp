@@ -6,7 +6,7 @@
 		<div fxFlex="50">
 			<md-card> <md-card-header> <md-card-title>
 			<h3>{{dish.name | uppercase}}</h3>
-			</md-card-title> </md-card-header> <img md-card-image src={{dish.image}} alt={{dish.name}}> <md-card-content>
+			</md-card-title> </md-card-header> <img md-card-image src="{{baseURL + dish.image}}" alt={{dish.name}}> <md-card-content>
 			<p>{{dish.description}}</p>
 			</md-card-content> <md-card-actions>
 			<button md-button [routerLink]="['/dishdetail', prev]">
