@@ -25,6 +25,9 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { baseURL } from './shared/baseurl';
 
+import { RestangularModule, Restangular } from 'ngx-restangular';
+import { RestangularConfigFatory } from './shared/restConfig';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +48,8 @@ import { baseURL } from './shared/baseurl';
 	  AppRoutingModule, 
     FormsModule, 
     ReactiveFormsModule, 
-    HttpModule
+    HttpModule, 
+    RestangularModule.forRoot(RestangularConfigFatory)
   ],
   providers: [
 	DishService, 
