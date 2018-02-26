@@ -2,8 +2,8 @@
 	fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center"
 	fxLayoutGap="10px" fxLayoutGap.xs="0">
 
-	<div fxFlex *ngIf="dish" fxLayout="row">
-		<div fxFlex="50">
+	<div fxFlex fxLayout="row">
+		<div fxFlex="50" *ngIf="dish" [@visibility]="visibility">
 			<md-card> <md-card-header> <md-card-title>
 			<h3>{{dish.name | uppercase}}</h3>
 			</md-card-title> </md-card-header> <img md-card-image src="{{baseURL + dish.image}}" alt={{dish.name}}> <md-card-content>
@@ -20,7 +20,7 @@
 			</button>
 			</md-card-actions> </md-card>
 		</div>
-		<div fxFlex="50" fxLayout="column">
+		<div fxFlex="50" fxLayout="column" *ngIf="dish" [@visibility]="visibility">
 			<div fxFlex="50">
 				<div>
 					<h3>Comments</h3>
