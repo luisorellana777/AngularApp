@@ -73,7 +73,12 @@
 				</md-list-item>
 			</md-list>
        </div>
-       <div [hidden]="leaders">
+       <div [hidden]="leaders || leaderErrMess">
 	   		<md-spinner></md-spinner><h4>Loading . . . Please Wait</h4>
 	   </div>
+
+	<div *ngIf="leaderErrMess">
+		<h2>Error</h2>
+		<h4>>{{leaderErrMess}}</h4>
+	</div>
 </div>

@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Feedback, ContactType} from '../shared/feedback';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut, expand } from '../animations/app.animation';
+
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +14,8 @@ import { flyInOut } from '../animations/app.animation';
   'style': 'display: block;'
   },
   animations: [
-    flyInOut()
+    flyInOut(),
+    expand()
   ]
 })
 export class ContactComponent implements OnInit {
@@ -48,9 +51,13 @@ export class ContactComponent implements OnInit {
   
   feedbackForm: FormGroup;
   feedback: Feedback;
+  feedbackReturned: Feedback;
   contactType = ContactType;
+  errMess: string;
+  pushedButton = false;
 
-  constructor(private fb: FormBuilder) {this.createForm(); }
+  constructor(private fb: FormBuilder,
+              private feedbackService: FeedbackService) {this.createForm(); }
 
   ngOnInit() {
   }
@@ -60,7 +67,7 @@ export class ContactComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.minLength(2), , Validators.maxLength(25)]],
       lastname: ['', [Validators.required, Validators.minLength(2), , Validators.maxLength(25)]],
       telnum: ['', [Validators.required, , Validators.pattern]],
-      email: [0, [Validators.required, , Validators.email]],
+      email: ['', [Validators.required, , Validators.email]],
       agree: false,
       contactType: 'None',
       message: ''
@@ -88,8 +95,12 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
+    this.pushedButton = true;
+    this.errMess = null;
     this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
+    this.feedbackService.submitFeedback(this.feedback).subscribe(feedback => {this.feedbackReturned = feedback; console.log(this.feedbackReturned);this.pushedButton = false; setTimeout(f => {this.feedbackReturned = null}, 5000)}
+      , err => {this.errMess=<any>err;console.log("RESULTADO: " + this.errMess);this.feedbackReturned = null});
+    
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',

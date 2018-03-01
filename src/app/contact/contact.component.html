@@ -30,56 +30,46 @@
 
 				</div>
 			</div>
-			<div fxFlex fxFlexOffset="20px" class="form-size">
+			<div fxFlex *ngIf="feedbackReturned==null && errMess==null" fxFlexOffset="20px"
+				class="form-size" [@expand]>
 				<h3>Send us your Feedback</h3>
+				<!--
 				<p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json
 					}}</p>
+-->
 				<form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
 					<p>
-						<md-input-container class="half-width" dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}"> <input
-							mdInput formControlName="firstname" placeholder="First Name"
-							type="text" required> 
-							<md-hint>
-								<span [hidden]="!(formErrors.firstname)">
-									{{formErrors.firstname}}
-								</span>
-							</md-hint>	
-						</md-input-container>
-						<md-input-container class="half-width" dividerColor="{{(formErrors.lastname) ? 'warn' : 'primary'}}"> <input
-							mdInput formControlName="lastname" placeholder="Last Name"
-							type="text" required> 
-							<md-hint>
-								<span [hidden]="!(formErrors.lastname)">
-									{{formErrors.lastname}}
-								</span>
-							</md-hint>	
-						</md-input-container>
+						<md-input-container class="half-width"
+							dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}">
+						<input mdInput formControlName="firstname"
+							placeholder="First Name" type="text" required> <md-hint>
+						<span [hidden]="!(formErrors.firstname)">
+							{{formErrors.firstname}} </span> </md-hint> </md-input-container>
+						<md-input-container class="half-width"
+							dividerColor="{{(formErrors.lastname) ? 'warn' : 'primary'}}">
+						<input mdInput formControlName="lastname" placeholder="Last Name"
+							type="text" required> <md-hint> <span
+							[hidden]="!(formErrors.lastname)"> {{formErrors.lastname}}
+						</span> </md-hint> </md-input-container>
 					</p>
 					<p>
-						<md-input-container class="half-width" dividerColor="{{(formErrors.telnum) ? 'warn' : 'primary'}}"> <input
-							mdInput formControlName="telnum" placeholder="Tel. Number"
-							type="tel" pattern="[0-9]*" required> 
-							<md-hint>
-								<span [hidden]="!(formErrors.telnum)">
-									{{formErrors.telnum}}
-								</span>
-							</md-hint>	
-						</md-input-container>
-						<md-input-container class="half-width" dividerColor="{{(formErrors.email) ? 'warn' : 'primary'}}"> <input
-							mdInput formControlName="email" placeholder="Email" type="email"
-							required> 
-							<md-hint>
-								<span [hidden]="!(formErrors.email)">
-									{{formErrors.email}}
-								</span>
-							</md-hint>	
-						</md-input-container>
+						<md-input-container class="half-width"
+							dividerColor="{{(formErrors.telnum) ? 'warn' : 'primary'}}">
+						<input mdInput formControlName="telnum" placeholder="Tel. Number"
+							type="tel" pattern="[0-9]*" required> <md-hint>
+						<span [hidden]="!(formErrors.telnum)">
+							{{formErrors.telnum}} </span> </md-hint> </md-input-container>
+						<md-input-container class="half-width"
+							dividerColor="{{(formErrors.email) ? 'warn' : 'primary'}}">
+						<input mdInput formControlName="email" placeholder="Email"
+							type="email" required> <md-hint> <span
+							[hidden]="!(formErrors.email)"> {{formErrors.email}} </span> </md-hint> </md-input-container>
 					</p>
 					<table class="form-size">
 						<td><md-slide-toggle formControlName="agree">May
 							we contact you?</md-slide-toggle></td>
 						<td><md-select placeholder="How?"
-								formControlName="contacttype"> <md-option
+								formControlName="contactType"> <md-option
 								*ngFor="let ctype of contactType" [value]="ctype">
 							{{ ctype }} </md-option> </md-select></td>
 					</table>
@@ -89,8 +79,27 @@
 							rows=12></textarea> </md-input-container>
 					</p>
 					<button type="submit" md-button
-						class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
+						class="background-primary text-floral-white"
+						[disabled]="feedbackForm.invalid">Submit</button>
 				</form>
+			</div>
+			<div fxLayout="column" *ngIf="feedbackReturned != null" [@expand]>
+				<h3>Your submission</h3>
+				<p>First Name: {{feedback.firstname}}</p>
+				<p>Last Name: {{feedback.lastname}}</p>
+				<p>Tel. number: {{feedback.telnum}}</p>
+				<p>Email: {{feedback.email}}</p>
+				<p>Contact You?: {{feedback.agree}}</p>
+				<p>How?: {{feedback.contacttype}}</p>
+				<p>Feedback: {{feedback.message}}</p>
+			</div>
+			<div [hidden]="feedbackReturned || errMess" *ngIf="pushedButton">
+				<md-spinner></md-spinner>
+				<h4>Loading . . . Please Wait</h4>
+			</div>
+			<div *ngIf="errMess">
+				<h2>Error</h2>
+				<h4>>{{errMess}}</h4>
 			</div>
 		</div>
 	</div>
