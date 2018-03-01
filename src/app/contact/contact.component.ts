@@ -94,7 +94,7 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit() { 
     this.pushedButton = true;
     this.errMess = null;
     this.feedback = this.feedbackForm.value;
